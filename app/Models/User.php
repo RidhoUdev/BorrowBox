@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -17,8 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 
+        'name',
+        'username', 
         'email',
+        'phone',
+        'role',
         'password',
     ];
 
@@ -43,5 +47,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function borrowRequestAsBorrower():HasMany
+    {
+        return $this->hasMany(BorrowRequest::class, 'borrower_id');
+    }
+
+    public function borrowRequestAsOperator():HasMany
+    {
+        return $this->hasMany(BorrowRequest::class, 'operator_id');
     }
 }
