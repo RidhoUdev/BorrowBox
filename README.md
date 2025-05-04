@@ -6,7 +6,7 @@
 
 # BorrowBox 📦
 
-Aplikasi Peminjaman Barang
+BorrowBox merupakan sistem peminjaman barang sekolah berbasis web yang intuitif, dirancang untuk memudahkan pengelolaan inventaris, memproses permintaan peminjaman, dan melacak status barang secara efisien bagi admin, operator, serta peminjam.
 
 ---
 
@@ -14,7 +14,7 @@ Aplikasi Peminjaman Barang
 
 Pastikan perangkat lunak berikut sudah terinstal di sistem Anda sebelum memulai:
 
-* **PHP:** Versi `^8.1` (atau sesuaikan dengan versi yang dibutuhkan project Anda)
+* **PHP:** Versi `^8.2` (atau sesuaikan dengan versi yang dibutuhkan project Anda)
 * **Composer:** [Versi terbaru](https://getcomposer.org/)
 * **Node.js & NPM (atau Yarn):** Versi `^18.0` (atau sesuaikan)
 * **Database:** MySQL / PostgreSQL / SQLite (sesuai konfigurasi project)
@@ -61,9 +61,9 @@ Ikuti langkah-langkah berikut untuk menjalankan project ini di lingkungan lokal 
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
-    DB_DATABASE=borrowbox  # Pastikan database ini sudah dibuat
-    DB_USERNAME=root     # Ganti jika perlu
-    DB_PASSWORD=         # Ganti jika menggunakan password
+    DB_DATABASE=borrowbox
+    DB_USERNAME=root
+    DB_PASSWORD=
     ```
     *(Pastikan Anda sudah membuat database kosong bernama `borrowbox` atau sesuai dengan `DB_DATABASE`)*
 
@@ -84,6 +84,6 @@ Ikuti langkah-langkah berikut untuk menjalankan project ini di lingkungan lokal 
     ```bash
     php artisan serve
     ```
-    Aplikasi akan tersedia di `http://127.0.0.1:8000` (atau port lain jika 8000 sudah digunakan).
+    Aplikasi akan tersedia di `http://127.0.0.1:8000`
 
 ---
