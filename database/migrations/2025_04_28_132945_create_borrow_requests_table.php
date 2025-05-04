@@ -16,11 +16,9 @@ return new class extends Migration
             $table->foreignId('borrower_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('operator_id')->nullable()->constrained('users')->onDelete('set null');
             $table->enum('status', ['pending', 'approved', 'rejected', 'borrowed', 'returned']);
-            
             $table->timestamp('request_date');
             $table->timestamp('expected_return_date')->nullable();
             $table->timestamp('return_date')->nullable();
-
             $table->timestamps();
         });
     }
