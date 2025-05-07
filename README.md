@@ -16,8 +16,8 @@ Pastikan perangkat lunak berikut sudah terinstal di sistem Anda sebelum memulai:
 
 * **PHP:** Versi `^8.2` (atau sesuaikan dengan versi yang dibutuhkan project Anda)
 * **Composer:** [Versi terbaru](https://getcomposer.org/)
-* **Node.js & NPM (atau Yarn):** Versi `^18.0` (atau sesuaikan)
-* **Database:** MySQL / PostgreSQL / SQLite (sesuai konfigurasi project)
+* **Node.js & NPM (atau Yarn):** Versi `^22.0` (atau sesuaikan)
+* **Database:** MySQL
 * **Git**
 
 ---
