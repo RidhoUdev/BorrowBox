@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
 {
+
+    public function showFormLogin()
+    {
+        return view('auth.login');
+    }
     
     public function login(Request $request)
     {
@@ -56,5 +61,15 @@ class AuthenticationController extends Controller
         return redirect()->back()
                          ->withInput($request->only('login_identifier', 'remember'))
                          ->withErrors(['login_identifier' => 'Email/username atau kata sandi yang Anda masukkan salah.']);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }
