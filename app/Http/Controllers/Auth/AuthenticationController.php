@@ -49,7 +49,7 @@ class AuthenticationController extends Controller
             $user = Auth::user();
 
             if ($user->role === 'admin') {
-                // return redirect()->intended(route('admin.dashboard'));
+                return redirect()->intended(route('admin.dashboard'));
             } elseif ($user->role === 'operator') {
                 // return redirect()->intended(route('operator.dashboard'));
             } else {
