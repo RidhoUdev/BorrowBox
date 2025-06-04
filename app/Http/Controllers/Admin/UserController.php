@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use Dotenv\Validator;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\UserStoreRequest;
 use App\Http\Requests\Admin\UserUpdateFormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -34,27 +31,16 @@ class UserController extends Controller
 
     }
 
-    public function store(Request $request)
-{
-    // Validasi data input
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'username' => 'required|string|max:255|unique:users,username',
-        'email' => 'required|string|email|max:255|unique:users,email',
-        'phone' => 'nullable|string|max:20',
-        'role' => ['required', 'string', Rule::in(['operator', 'user'])],
-        'password' => 'required|string|min:8|confirmed',
-    ]);
+    public function store(UserStoreRequest $request)
+    {
+        $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        
+        User::create($validatedData);
 
-    // Enkripsi password
-    $validatedData['password'] = Hash::make($validatedData['password']);
-
-    // Simpan data pengguna baru
-    User::create($validatedData);
-
-    // Redirect ke halaman daftar pengguna dengan pesan sukses
-    return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil ditambahkan.');
-}
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'User berhasil ditambahkan.');
+    }
 
 
     public function show(string $id)
@@ -71,51 +57,32 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
-{
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'username' => [
-            'required',
-            'string',
-            'max:255',
-            Rule::unique('users')->ignore($user->id),
-        ],
-        'email' => [
-            'required',
-            'string',
-            'email',
-            'max:255',
-            Rule::unique('users')->ignore($user->id),
-        ],
-        'phone' => 'nullable|string|max:20',
-        'role' => ['required', 'string', Rule::in(['operator', 'user'])],
-        'password' => 'nullable|string|min:8|confirmed',
-    ]);
+    public function update(UserUpdateFormRequest $request, User $user)
+    {
+        $validatedData = $request->validated();
 
-    if (!empty($validatedData['password'])) {
-        $validatedData['password'] = Hash::make($validatedData['password']);
-    } else {
-        unset($validatedData['password']);
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        $user->update($validatedData);
+
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'User berhasil diperbarui.');
     }
-
-    $user->update($validatedData);
-
-    return redirect()->route('admin.users.index')
-                    ->with('success', 'User berhasil diperbarui.');
-}
 
     public function destroy(User $user)
-{
+    {
+        if (Auth::id() === $user->id) {
+            return redirect()->route('admin.users.index')
+                            ->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+        }
 
-    if (Auth::id() === $user->id) {
+        $user->delete();
         return redirect()->route('admin.users.index')
-                        ->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+                        ->with('success', 'User berhasil dihapus.');
     }
-
-    $user->delete();
-    return redirect()->route('admin.users.index')
-                    ->with('success', 'User berhasil dihapus.');
-}
 
 }

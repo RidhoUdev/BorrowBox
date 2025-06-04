@@ -5,13 +5,13 @@
         <label class="form-control w-full">
             <div class="label block">
                 <span class="label-text">Nama Lengkap</span>
-                <span class="text-error">*</span>
+                <span class="text-error text-sm">*</span>
             </div>
             <input type="text" name="name" placeholder="Masukkan nama lengkap" value="{{ old('name') }}"
                 class="input input-bordered w-full @error('name') input-error @enderror" required />
             @error('name')
                 <div class="label block">
-                    <span class="label-text-alt text-error">{{ $message }}</span>
+                    <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                 </div>
             @enderror
         </label>
@@ -19,13 +19,13 @@
         <label class="form-control w-full">
             <div class="label block">
                 <span class="label-text">Username</span>
-                <span class="text-error">*</span>
+                <span class="text-error text-sm">*</span>
             </div>
             <input type="text" name="username" placeholder="Masukkan username unik" value="{{ old('username') }}"
                 class="input input-bordered w-full @error('username') input-error @enderror" required />
             @error('username')
                 <div class="label block">
-                    <span class="label-text-alt text-error">{{ $message }}</span>
+                    <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                 </div>
             @enderror
         </label>
@@ -33,13 +33,13 @@
         <label class="form-control w-full">
             <div class="label block">
                 <span class="label-text">Email</span>
-                <span class="text-error">*</span>
+                <span class="text-error text-sm">*</span>
             </div>
             <input type="email" name="email" placeholder="email@example.com" value="{{ old('email') }}"
                 class="input input-bordered w-full @error('email') input-error @enderror" required />
             @error('email')
                 <div class="label block">
-                    <span class="label-text-alt text-error">{{ $message }}</span>
+                    <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                 </div>
             @enderror
         </label>
@@ -48,11 +48,11 @@
             <div class="label block">
                 <span class="label-text">Nomor Telepon</span>
             </div>
-            <input type="tel" name="phone" placeholder="Contoh: 08123456789" value="{{ old('phone') }}"
+            <input type="number" name="phone" placeholder="Contoh: 08123456789" value="{{ old('phone') }}"
                 class="input input-bordered w-full @error('phone') input-error @enderror" />
             @error('phone')
                 <div class="label block">
-                    <span class="label-text-alt text-error">{{ $message }}</span>
+                    <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                 </div>
             @enderror
         </label>
@@ -60,7 +60,7 @@
         <label class="form-control w-full">
             <div class="label block">
                 <span class="label-text">Role</span>
-                <span class="text-error">*</span>
+                <span class="text-error text-sm">*</span>
             </div>
             <select name="role" class="select select-bordered w-full @error('role') select-error @enderror" required>
                 <option disabled {{ old('role') ? '' : 'selected' }}>Pilih Role</option>
@@ -69,7 +69,7 @@
             </select>
             @error('role')
                 <div class="label block">
-                    <span class="label-text-alt text-error">{{ $message }}</span>
+                    <span class="label-text-alt text-error text-sm">{{ $message }}</span>
                 </div>
             @enderror
         </label>
@@ -78,36 +78,31 @@
             <div class="label block">
                 <span class="label-text">
                     Password
-                    <span class="text-error">
-                        *
+                    <span class="text-error text-sm">
+                        @error('name') <div class="label block"> <span class="label-text-alt text-error text-sm">{{ $message }}</span> </div> @enderror
                     </span>
                 </span>
             </div>
             <input type="password" name="password" placeholder="Minimal 8 Karakter"
                 class="input input-bordered w-full @error('password') input-error @enderror" required/>
-            @error('password')
             <div class="label block">
-                <span class="label-text-alt text-error">
-                    *
+                <span class="label-text-alt text-error text-sm">
+                   @error('password') <div class="label block"> <span class="label-text-alt text-error text-sm">{{ $message }}</span> </div> @enderror
                 </span>
             </div>
-            @enderror
         </label>
         <label class="form-control w-full">
             <div class="label block">
                 <span class="label-text">
                     Password Confirmation
-                    <span class="text-error">
-                        *
-                    </span>
                 </span>
             </div>
             <input type="password" name="password_confirmation" placeholder="Minimal 8 Karakter"
-                class="input input-bordered w-full @error('password') input-error @enderror" required/>
-            @error('password')
+                class="input input-bordered w-full @error('password_confirmation') input-error @enderror" required/>
+            @error('password_confirmation')
             <div class="label block">
-                <span class="label-text-alt text-error">
-                    *
+                <span class="label-text-alt text-error text-sm">
+                    <div class="label block"> <span class="label-text-alt text-error text-sm">{{ $message }}</span> </div> 
                 </span>
             </div>
             @enderror
