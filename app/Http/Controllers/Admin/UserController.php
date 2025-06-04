@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\UserStoreRequest;
+use App\Http\Requests\Admin\UserUpdateFormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -12,54 +16,73 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::latest()->paginate(10);
+        return view('admin.users.index', compact('users'));
+
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      */
+
     public function create()
     {
-        //
+        return view('admin.users.create');
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        
+        User::create($validatedData);
+
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'User berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+        return abort(404);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of the resource.
      */
+
     public function edit(string $id)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateFormRequest $request, User $user)
     {
-        //
+        $validatedData = $request->validated();
+
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']);
+        }
+
+        $user->update($validatedData);
+
+        return redirect()->route('admin.users.index')
+                         ->with('success', 'User berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        if (Auth::id() === $user->id) {
+            return redirect()->route('admin.users.index')
+                            ->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+        }
+
+        $user->delete();
+        return redirect()->route('admin.users.index')
+                        ->with('success', 'User berhasil dihapus.');
     }
+
 }
