@@ -51,9 +51,9 @@ class AuthenticationController extends Controller
             if ($user->role === 'admin') {
                 return redirect()->intended(route('admin.dashboard'));
             } elseif ($user->role === 'operator') {
-                // return redirect()->intended(route('operator.dashboard'));
+                return redirect()->intended(route('operator.dashboard'));
             } else {
-                // return redirect()->intended(route('user'));
+                return redirect()->intended(route('user.items.index'));
             }
 
         }
