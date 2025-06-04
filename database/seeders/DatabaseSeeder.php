@@ -16,13 +16,35 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        // $now = now();
+        // User::create([
+        //     'name' => 'Admin',
+        //     'username' => 'mas admin',
+        //     'email' => 'admin@example.com',
+        //     'phone' => '08123456789',
+        //     'role' => 'admin',
+        //     'email_verified_at' => $now,
+        //     'password' => Hash::make('password'),
+        //     'created_at' => $now
+        // ]);
+        // $now = now();
+        // User::create([
+        //     'name' => 'Operator',
+        //     'username' => 'mas operator',
+        //     'email' => 'operator@example.com',
+        //     'phone' => '081234567890',
+        //     'role' => 'operator',
+        //     'email_verified_at' => $now,
+        //     'password' => Hash::make('password'),
+        //     'created_at' => $now
+        // ]);
         $now = now();
         User::create([
-            'name' => 'Admin',
-            'username' => 'mas admin',
-            'email' => 'admin@example.com',
-            'phone' => '08123456789',
-            'role' => 'admin',
+            'name' => 'User',
+            'username' => 'mas user',
+            'email' => 'user@example.com',
+            'phone' => '081234567891',
+            'role' => 'user',
             'email_verified_at' => $now,
             'password' => Hash::make('password'),
             'created_at' => $now
