@@ -23,7 +23,7 @@ class RoleMiddleware
         $userRole = Auth::user()->role;
 
         if (!in_array($userRole, $roles)) {
-            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+            abort(403, 'ANDA TIDAK MEMILIKI AKSES KE HALAMAN INI.');
         }
         return $next($request);
     }

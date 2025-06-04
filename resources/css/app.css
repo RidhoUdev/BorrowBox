@@ -1,3 +1,6 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@import 'sweetalert2/dist/sweetalert2.min.css';
 @source "../views";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake, fantasy, pastel;
+}
